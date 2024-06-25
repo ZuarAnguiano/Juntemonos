@@ -14,14 +14,13 @@ import { getAuth } from 'firebase/auth';
 
   // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAWDCcGr0ORt4QiVjpwnoWghBuqyru9A1A",
-  authDomain: "juntemonos-df03f.firebaseapp.com",
-  databaseURL: "https://juntemonos-df03f-default-rtdb.firebaseio.com",
-  projectId: "juntemonos-df03f",
-  storageBucket: "juntemonos-df03f.appspot.com",
-  messagingSenderId: "884600211688",
-  appId: "1:884600211688:web:5d011d28fc4baeee6ba15d",
-  measurementId: "G-4BY4FY2XPX"
+  apiKey: "AIzaSyDBkN3AteSVVcdtbTPdGaVwu23Oq-49k7U",
+  authDomain: "loginprueba-fc62f.firebaseapp.com",
+  databaseURL: "https://loginprueba-fc62f-default-rtdb.firebaseio.com",
+  projectId: "loginprueba-fc62f",
+  storageBucket: "loginprueba-fc62f.appspot.com",
+  messagingSenderId: "620762279554",
+  appId: "1:620762279554:web:9524442fe5b3cc74b48e9b"
 };
 
 
@@ -34,3 +33,15 @@ export { firebase, db, auth };
 //const analytics = getAnalytics(app);
 
 
+//Credenciales buenas
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAWDCcGr0ORt4QiVjpwnoWghBuqyru9A1A",
+//   authDomain: "juntemonos-df03f.firebaseapp.com",
+//   databaseURL: "https://juntemonos-df03f-default-rtdb.firebaseio.com",
+//   projectId: "juntemonos-df03f",
+//   storageBucket: "juntemonos-df03f.appspot.com",
+//   messagingSenderId: "884600211688",
+//   appId: "1:884600211688:web:5d011d28fc4baeee6ba15d",
+//   measurementId: "G-4BY4FY2XPX"
+// };

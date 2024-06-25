@@ -12,6 +12,7 @@ export default function EventsScreen() {
     const [events, setEvents] = useState([]);
     console.log(events)
 
+    //Bucar todos los eventos de la bd, hacemos de uso de la clase "EventModel"
     useFocusEffect(
         React.useCallback(() => {
             const fetchEvents = async () => {
@@ -26,7 +27,7 @@ export default function EventsScreen() {
         }, [])
     );
 
-    //Cuando se haga swipe y el usuario seleccione que "Si" en eliminar, se elimina el evento de events
+    //Cuando se haga swipe y el usuario seleccione que "Si" en eliminar, se elimina el evento de events y de la bd
     const deleteEvent = async (eventId) => {
         const success = await EventModel.deleteEvent(eventId);
         if (success) {
@@ -34,14 +35,15 @@ export default function EventsScreen() {
         }
     };
 
+    //Redireccionar a otra vista
     const navigateToCreateEvent = () => {
         navigation.navigate('CreateEvent');
     };
 
     return (
         <View style={styles.container}>
-            <EventsProgress events={events} />
-            <EventHistory events={events}/>
+            <EventsProgress events={events} onDeleteEvent={deleteEvent} />
+            <EventHistory events={events} onDeleteEvent={deleteEvent}/>
             <TouchableOpacity style={styles.floatingButton} onPress={navigateToCreateEvent}>
                 <Text style={styles.floatingButtonText}>+</Text>
             </TouchableOpacity>

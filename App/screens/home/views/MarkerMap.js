@@ -3,7 +3,7 @@ import React from 'react'
 import { Marker } from 'react-native-maps'
 
 export default function MarkerMap({ place }) {
-    console.log("aMarker", place)
+    //Marcador del mapa, para los eventos.
     return (
         <Marker
             coordinate={{

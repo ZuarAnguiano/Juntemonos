@@ -10,7 +10,7 @@ export class CreateEventModel {
         this.interests = interests;
     }
 
-
+//Funcion para guardar el evento en la base de datos
     static async saveEvent(event) {
         try {
             console.log(db);

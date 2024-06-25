@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
 
 export const useLocationService = (setLocation, setErrorMsg) => {
+
+  //Permisos de obtener la ubicacion actual y obtenerla
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();

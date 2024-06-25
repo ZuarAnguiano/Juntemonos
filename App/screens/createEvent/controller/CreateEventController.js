@@ -20,17 +20,20 @@ export default function CreateEventScreen() {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
     const [selectedInterests, setSelectedInterests] = useState([]);
-
     const [markerCoords, setMarkerCoords] = useState({
         latitude: location.latitude,
         longitude: location.longitude,
     });
 
+
+
+    //Actualiza las coordenadas del marcador cuando se arrastra en el mapa.
     const handleMarkerDrag = (e) => {
         setMarkerCoords(e.nativeEvent.coordinate);
         console.log(markerCoords)
     };
 
+    //Agrega los intereses seleccionados a interest 
     const handleInterestChange = (interest, isChecked) => {
         if (isChecked) {
             setSelectedInterests([...selectedInterests, interest]);
@@ -39,10 +42,13 @@ export default function CreateEventScreen() {
         }
     };
 
+
+    //Solo imprime los intereses cada que se selecciona uno nuevo, se puede borrar, solo es para ver en la consola
     useEffect(() => {
         console.log("Intereses seleccionados: ", selectedInterests);
     }, [selectedInterests]);
 
+    //Actualiza la fecha seleccionada y muestra/oculta los selectores(DateTimePicker) correspondientes.
     const onChangeDate = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShowDatePicker(false);
@@ -50,6 +56,7 @@ export default function CreateEventScreen() {
         console.log(formatDate(currentDate));
     };
 
+    //Actualiza la hora seleccionada y muestra/oculta los selectores(DateTimePicker) correspondientes.
     const onChangeTime = (event, selectedTime) => {
         const currentDate = selectedTime || date;
         setShowTimePicker(false);
@@ -62,16 +69,19 @@ export default function CreateEventScreen() {
         }
     };
 
+    //Muestra u oculta los selectores(DateTimePicker)  de fecha y hora.
     const showDatepicker = () => {
         setShowTimePicker(false);
         setShowDatePicker(!showDatePicker);
     };
 
+    //Muestra u oculta los selectores(DateTimePicker)  de fecha y hora.
     const showTimepicker = () => {
         setShowDatePicker(false);
         setShowTimePicker(!showTimePicker);
     };
 
+    //Formatear la fecha, es decir, mostrarlo legible
     const formatDate = (date) => {
         const day = date.getDate().toString().padStart(2, '0');
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -79,6 +89,7 @@ export default function CreateEventScreen() {
         return `${day}/${month}/${year}`;
     };
 
+    //Formatear la hora, es decir, mostrarlo legible
     const formatTime = (date) => {
         return date.toLocaleString('es-ES', {
             hour: 'numeric',
@@ -87,6 +98,8 @@ export default function CreateEventScreen() {
         });
     };
 
+
+    //Validacion y guardado del evento usando el modelo CreateEventModel.
     const SaveEvent = async () => {
         if (textNameEvent === "") {
             alert("Por Favor Ingresa el Nombre del Evento");
@@ -142,6 +155,7 @@ export default function CreateEventScreen() {
                         mode="date"
                         display="spinner"
                         onChange={onChangeDate}
+                        minimumDate={new Date()}
                     />
                 )}
 

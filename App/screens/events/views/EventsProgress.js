@@ -3,11 +3,13 @@ import React, { useState } from 'react'
 import SwipeableItem from '../../../components/SwipeableItem'
 import { useNavigation } from '@react-navigation/native';
 
-export default function EventsProgress({ events }) {
+export default function EventsProgress({ events, onDeleteEvent }) {
     const navigation = useNavigation();
 
+
+    // Navega a la pantalla de detalles del evento con el parámetro id
     const navigateToDetailsEventNV = (id) => {
-        navigation.navigate('DetailsEventNVScreen', { id }); // Navega a la pantalla de detalles del evento con el parámetro event_name
+        navigation.navigate('DetailsEventNVScreen', { id });
     };
 
     return (

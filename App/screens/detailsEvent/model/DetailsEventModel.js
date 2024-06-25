@@ -3,6 +3,7 @@ import { collection, addDoc, getDoc, deleteDoc, doc } from 'firebase/firestore';
 
 export class DetailsEventModel {
 
+    //Obtener el evento con el id 
     static async getEventById(eventId) {
         try {
             const docRef = doc(db, 'events', eventId);

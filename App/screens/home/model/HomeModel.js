@@ -3,6 +3,8 @@ import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
 
 export class HomeModel {
 
+
+    //Obtiene todos los eventos
     static async getEvents() {
         try {
             const eventsSnapshot = await getDocs(collection(db, 'events'));

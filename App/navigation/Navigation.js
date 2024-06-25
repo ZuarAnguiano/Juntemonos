@@ -8,7 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 //Screens Iniciales
 import InitiateScreen from '../screens/initiate/InitiateScreen'
 import { LoginScreen } from '../screens/login/LoginScreen'
-import { RegisterScreen } from '../screens/register/RegisterScreen'
+import RegisterUserController  from '../screens/register/controller/RegisterUserController'
 //Screen Tabs
 import HomeScreen from "../screens/home/controller/HomeController";
 import SettingsScreen from "../screens/SettingsScreen";
@@ -17,7 +17,7 @@ import StackScreen from "../screens/StackScreen";
 import EventsScreen from '../screens/events/controller/EventController'
 import DetailsUserScreen from '../screens/detailsUser/DetailsUserScreen'
 import DetailsEventNVScreen from '../screens/detailsEvent/controller/DetailsEventNVController'
-import DetailsEventEScreen from '../screens/detailsEvent/DetailsEventsEScreen'
+import DetailsEventEScreen from '../screens/detailsEvent/controller/DetailsEventEController'
 import CreateEventScreen from '../screens/createEvent/controller/CreateEventController'
 
 //declaramos una variable en una constante de la clase Navigator
@@ -33,25 +33,35 @@ function MyStack() {
                 name="Initiate"
                 component={InitiateScreen}
                 options={{
-                    title:"Inicio",
+                    title: "Inicio",
+                    headerTitleAlign: "center"
                 }}
             />
 
             <HomeStackNavigator.Screen
                 name="Login"
                 component={LoginScreen}
+                options={{
+                    title: "Login",
+                    headerTitleAlign: "center"
+                }}
             />
 
             <HomeStackNavigator.Screen
                 name="Register"
-                component={RegisterScreen}
+                component={RegisterUserController}
+                options={{
+                    title: "Register",
+                    headerTitleAlign: "center"
+                }}
             />
 
             <HomeStackNavigator.Screen
                 name="Events"
                 component={EventsScreen}
                 options={{
-                    title:"Events",
+                    title: "Events",
+                    headerTitleAlign: "center"
                 }}
             />
 
@@ -59,7 +69,8 @@ function MyStack() {
                 name="DetailsUser"
                 component={DetailsUserScreen}
                 options={{
-                    title:"Details User",
+                    title: "Details User",
+                    headerTitleAlign: "center"
                 }}
             />
 
@@ -67,7 +78,8 @@ function MyStack() {
                 name="DetailsEventNVScreen"
                 component={DetailsEventNVScreen}
                 options={{
-                    title:"Details of event",
+                    title: "Details of event",
+                    headerTitleAlign: "center"
                 }}
             />
 
@@ -75,7 +87,8 @@ function MyStack() {
                 name="DetailsEventEScreen"
                 component={DetailsEventEScreen}
                 options={{
-                    title:"Details of event",
+                    title: "Details of event",
+                    headerTitleAlign: "center"
                 }}
             />
 
@@ -83,7 +96,8 @@ function MyStack() {
                 name="CreateEvent"
                 component={CreateEventScreen}
                 options={{
-                    title:"Create Event",
+                    title: "Create Event",
+                    headerTitleAlign: "center"
                 }}
             />
 
@@ -91,7 +105,7 @@ function MyStack() {
                 name="Tabs"
                 component={MyTabs}
                 options={{
-                    headerBackTitleVisible: false,
+                    headerShown: false,
                 }}
             />
         </HomeStackNavigator.Navigator>
@@ -113,12 +127,13 @@ function MyTabs() {
                 name="Home"
                 component={HomeScreen}
                 options={{
-                    tabBarLabel: 'Feed',
+                    tabBarLabel: 'Home',
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="home" color={color} size={30} />
                     ),
                     tabBarBadge: 10,
-                    headerShown: false,
+                    title: "Home",
+                    headerTitleAlign: "center"
                 }}
             />
             <Tab.Screen
@@ -129,13 +144,15 @@ function MyTabs() {
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="brightness-5" color={color} size={30} />
                     ),
+                    title: "Settings",
+                    headerTitleAlign: "center"
                 }}
             />
         </Tab.Navigator>
     );
 }
 
-/*Returnamos un componenete de tabnavigation */
+/*Returnamos un componenete de MyStack*/
 export default function Navigation() {
     return (
         <NavigationContainer>

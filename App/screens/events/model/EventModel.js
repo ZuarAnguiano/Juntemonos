@@ -4,6 +4,7 @@ import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
 export class EventModel {
 
 
+    //Obtener los eventos
     static async getEvents() {
         try {
             const eventsSnapshot = await getDocs(collection(db, 'events'));
@@ -14,6 +15,7 @@ export class EventModel {
         }
     }
 
+    //Eliminar los eventos
     static async deleteEvent(eventId) {
         try {
             await deleteDoc(doc(db, 'events', eventId));

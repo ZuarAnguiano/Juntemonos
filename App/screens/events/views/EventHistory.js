@@ -2,11 +2,12 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-nativ
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 
-export default function EventHistory({ events }) {
+export default function EventHistory({ events, onDeleteEvent }) {
     const navigation = useNavigation();
 
+     // Navega a la pantalla de detalles del evento con el parámetro id
     const navigateToDetailsEventNV = (id) => {
-        navigation.navigate('DetailsEventNVScreen', { id }); // Navega a la pantalla de detalles del evento con el parámetro event_name
+        navigation.navigate('DetailsEventNVScreen', { id });
     };
 
     return (

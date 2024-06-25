@@ -5,17 +5,18 @@ import DataEvent from '../views/DataEvent';
 import Reviews from '../views/Reviews';
 import EventUsers from '../views/EventUser';
 import { useRoute } from '@react-navigation/native';
+import { Entypo } from '@expo/vector-icons';
 
 
-export default function DetailsEventNV(varEvent) {
-    //Buscar el registro con ese id
+export default function DetailsEventEScreen() {
+    //useRoute se utiliza ya que al redireccionar(desde events) a esta pantalla se mando una variable {id}
     const route = useRoute();
     const { id } = route.params;
     const eventId = id;
     const [event, setEvent] = useState([]);
     const rating = 0;
-    const eventUsers = 200;
 
+    //Buscar el evento con el id recuperado anteriormente, hacemo uso de la clase "DetailsEventModel"
     useEffect(() => {
         const fetchEventById = async () => {
             try {
@@ -65,4 +66,20 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         justifyContent: 'center',
     },
+    headerText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    }, containerGraph: {
+        flex: 1,
+        borderWidth: 1,
+        borderColor: "#000",
+        padding: 10,
+        marginBottom: 10,
+        paddingHorizontal: 20,
+    },
+    graph: {
+
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });

@@ -7,11 +7,11 @@ import MarkerMap from './MarkerMap';
 
 
 export default function AppMapView({ events }) {
-    console.log("appMapView", events)
     const { location } = useContext(UserLocationContext);
     const [searchText, setSearchText] = useState('');
     const [region, setRegion] = useState([]);
 
+    //Actualizar la longitude y latitude si se actualiza location 
     useEffect(() => {
         if (location) {
             setRegion({
