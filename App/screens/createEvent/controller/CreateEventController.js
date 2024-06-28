@@ -9,6 +9,8 @@ import EventDatePicker from '../views/EventDatePicker';
 import Interest from '../views/Interest';
 import { useNavigation } from '@react-navigation/native';
 import { db } from '../../../../firebaseConfig';
+import { DetailsUserModel } from '../../detailsUser/model/DetailsUserModel'
+import UserContext from '../../../context/AuthContext'
 
 
 export default function CreateEventScreen() {
@@ -17,6 +19,7 @@ export default function CreateEventScreen() {
     const [textDescription, setTextDescription] = useState('');
     const [date, setDate] = useState(new Date());
     const { location } = useContext(UserLocationContext);
+    const { userId } = useContext(UserContext);
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
     const [selectedInterests, setSelectedInterests] = useState([]);
@@ -103,14 +106,27 @@ export default function CreateEventScreen() {
     const SaveEvent = async () => {
         if (textNameEvent === "") {
             alert("Por Favor Ingresa el Nombre del Evento");
-        } else {
+            return;
+        }
+
+        try {
+            const userType = await CreateEventModel.checkUserType(userId);
+            const eventLimit = await CreateEventModel.checkEventLimit(userId);
+
+            if (userType === 'freemium' && eventLimit >= 2) {
+                alert("Los usuarios freemium solo pueden crear hasta 2 eventos. Por favor, actualiza a premium para crear más eventos.");
+                return;
+            }
+
             const newEvent = new CreateEventModel(
                 textNameEvent,
                 textDescription,
                 date,
                 markerCoords,
-                selectedInterests
+                selectedInterests,
+                userId
             );
+
             const success = await CreateEventModel.saveEvent(newEvent);
             if (success) {
                 navigation.navigate("Events");
@@ -118,6 +134,8 @@ export default function CreateEventScreen() {
             } else {
                 console.log('Failed to save event');
             }
+        } catch (error) {
+            console.error('Error saving event:', error);
         }
     };
 

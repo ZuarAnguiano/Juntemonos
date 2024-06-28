@@ -8,6 +8,7 @@ export default function ModalPhoto({ isModalVisible, setIsModalVisible, uploadIm
 
 
     const handleUploadImage = (mode) => {
+        console.log(mode)
         uploadImage(mode); // Llama a la función uploadImage de ImgProfile
     };
 

@@ -24,7 +24,6 @@ export default function DetailsEventNV() {
                 const event = await DetailsEventModel.getEventById(eventId);
                 setEvent(event);
             } catch (error) {
-                console.log(' no entra')
                 console.error('Error fetching event:', error);
             }
         };

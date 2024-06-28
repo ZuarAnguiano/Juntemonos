@@ -1,20 +1,19 @@
-import { View, Text, StyleSheet } from 'react-native'
+import React, { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import Checkbox from 'expo-checkbox';
-import React, { useState } from 'react'
-import Interest from '../../utils/Interest.json'
+import Interest from '../../../utils/Interest.json';
 
-export default function Intereses() {
+export default function Intereses({ onInterestChange }) {
 
     const [interestSelection, setInterestSelection] = useState({});
 
     // Función para manejar el cambio de estado de un checkbox específico
-    const handleCheckboxChange = (interest) => {
-        console.log(interest);
-        setInterestSelection(prevState => ({
-            ...prevState,
-            [interest]: !prevState[interest],
-        }));
-        
+    const handleCheckboxChange = (interest, isChecked) => {
+        const updatedSelection = { ...interestSelection, [interest]: isChecked };
+        setInterestSelection(updatedSelection);
+        if (onInterestChange) {
+            onInterestChange(interest, isChecked); // Llama a la función de la vista principal con el interés y si está seleccionado o no
+        }
     };
 
     return (
@@ -26,8 +25,8 @@ export default function Intereses() {
                         <View style={styles.checkboxContainer}>
                             <Checkbox
                                 value={interestSelection[interest] || false}
-                                onValueChange={() => handleCheckboxChange(interest)}
-                                color={interestSelection[interest] ? '#d00281' : undefined}
+                                onValueChange={(isChecked) => handleCheckboxChange(interest, isChecked)}
+                                color={'#d00281'}
                                 style={styles.checkbox}
                             />
                         </View>
@@ -38,7 +37,7 @@ export default function Intereses() {
                 ))}
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#000',
         padding: 5,
-        marginBottom:20
+        marginBottom: 20,
     },
     headerText: {
         fontSize: 20,
@@ -74,8 +73,4 @@ const styles = StyleSheet.create({
         flexShrink: 1, // Hace que el texto no desborde
         alignItems: 'center',
     },
-
-
-})
-
-
+});

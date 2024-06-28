@@ -1,15 +1,21 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React,{useState, useEffect} from 'react'
+import React,{useState, useContext} from 'react'
+import { useNavigation,useFocusEffect } from '@react-navigation/native';
 
 import { EventModel } from '../model/EventModel';
+import { CreateEventModel } from '../../createEvent/model/CreateEventModel';
+import { DetailsUserModel } from '../../detailsUser/model/DetailsUserModel'
 import EventsProgress from '../views/EventsProgress'
 import EventHistory from '../views/EventHistory'
-import { useNavigation,useFocusEffect } from '@react-navigation/native';
+import UserContext from '../../../context/AuthContext'
+
 
 
 export default function EventsScreen() {
     const navigation = useNavigation();
+    const { userId } = useContext(UserContext);
     const [events, setEvents] = useState([]);
+    
     console.log(events)
 
     //Bucar todos los eventos de la bd, hacemos de uso de la clase "EventModel"
@@ -17,8 +23,16 @@ export default function EventsScreen() {
         React.useCallback(() => {
             const fetchEvents = async () => {
                 try {
-                    const eventsFromDB = await EventModel.getEvents();
-                    setEvents(eventsFromDB);
+                    const userType = await CreateEventModel.checkUserType(userId);
+                    if (userType === 'freemium') {
+                        const eventsFromDB = await EventModel.getEventsTen();
+                        console.log(eventsFromDB)
+                        setEvents(eventsFromDB);
+                    } else {
+                        const eventsFromDB = await DetailsUserModel.getEvents();
+                        setEvents(eventsFromDB);
+                    }
+
                 } catch (error) {
                     console.error('Error fetching events:', error);
                 }

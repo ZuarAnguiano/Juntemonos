@@ -3,12 +3,14 @@ import FormRegister from '../views/FormRegister';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { RegisterModel } from '../model/RegisterModel';
 import { Alert, StyleSheet, View, Text } from 'react-native';
+import ButtonsFreePremium from '../views/ButtonsFreePremium';
 
 export default function RegisterUserController({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
     const [name, setName] = useState('');
+    const [typeUser, setTypeUser] = useState('freemium');
     const [date, setDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -22,7 +24,13 @@ export default function RegisterUserController({ navigation }) {
                 Alert.alert('La contraseña debe ser iguales');
                 return;
             }
-            const newUser = new RegisterModel(email, password, name, date);
+
+            const age = calculateAge(date);
+            if (age < 18) {
+                Alert.alert('Debes ser mayor de 18 años para registrarte.');
+                return;
+            }
+            const newUser = new RegisterModel(email, password, name, date, typeUser, age);
             const user = await RegisterModel.register(newUser);
 
             if (user) {
@@ -42,18 +50,35 @@ export default function RegisterUserController({ navigation }) {
         }
     }
 
-    //Seleccionar y cambiar fecha
-    const onChangeDate = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
-        setShowDatePicker(false);
-        setDate(currentDate);
-        console.log(formatDate(currentDate));
-    };
-
     //Mostrar el datePicker
     const showDatepicker = () => {
         setShowDatePicker(!showDatePicker);
     };
+
+    //Seleccionar y cambiar fecha
+    const onChangeDate = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShowDatePicker(false);
+        const age = calculateAge(currentDate);
+        if (age < 18) {
+            Alert.alert('Debes ser mayor de 18 años para registrarte.');
+        } else {
+            setDate(currentDate);
+            console.log(currentDate);
+            console.log(formatDate(currentDate));
+        }
+    };
+
+    const calculateAge = (birthDate) => {
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    };
+
 
     //Formatear la fecha, es decir, mostrarlo legible
     const formatDate = (date) => {
@@ -89,9 +114,12 @@ export default function RegisterUserController({ navigation }) {
                     mode="date"
                     display="spinner"
                     onChange={onChangeDate}
-                    maximumDate={new Date()}
+                    maximumDate={date}
                 />
             )}
+
+
+            <ButtonsFreePremium onSetTypeUser={setTypeUser} />
         </View>
     );
 }

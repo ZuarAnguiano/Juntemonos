@@ -14,7 +14,11 @@ export default function DataEvent({ event }) {
                         {`Intereses: ${event.interests} `}
                     </Text>
                     <Text>
-                        {`Fecha: ${event.date && event.date.seconds ? new Date(event.date.seconds * 1000).toLocaleDateString() : ''}`}
+                        {`Fecha y hora: ${event.date && event.date.seconds
+                                ? new Date(event.date.seconds * 1000).toLocaleString()
+                                : ''
+                            }`}
+
                     </Text>
                 </View>
             </ScrollView>

@@ -1,15 +1,17 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { addDoc, collection } from "firebase/firestore";
+import { setDoc, doc } from 'firebase/firestore';
 import { db, auth } from '../../../../firebaseConfig';
 
 
 export class RegisterModel {
 
-  constructor(email, password, name, birthdate) {
+  constructor(email, password, name, birthdate, typeUser, age) {
     this.email = email;
     this.password = password;
     this.name = name;
     this.birthdate = birthdate;
+    this.typeUser = typeUser
+    this.age = age;
     this.db = db;
   }
 
@@ -17,12 +19,15 @@ export class RegisterModel {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, dataUser.email, dataUser.password);
       const user = userCredential.user;
-      await addDoc(collection(db, 'users'), {
+      await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
         email: dataUser.email,
         name: dataUser.name,
         birthdate: dataUser.birthdate,
+        typeUser: dataUser.typeUser,
+        age: dataUser.age
       });
+      console.log('Usuario registrado:', dataUser);
       return user;
     } catch (error) {
       // Correo ya existe

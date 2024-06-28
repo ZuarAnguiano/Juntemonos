@@ -15,7 +15,7 @@ import SettingsScreen from "../screens/SettingsScreen";
 import StackScreen from "../screens/StackScreen";
 //Screens
 import EventsScreen from '../screens/events/controller/EventController'
-import DetailsUserScreen from '../screens/detailsUser/DetailsUserScreen'
+import DetailsUserScreen from '../screens/detailsUser/controller/DetailsUserController'
 import DetailsEventNVScreen from '../screens/detailsEvent/controller/DetailsEventNVController'
 import DetailsEventEScreen from '../screens/detailsEvent/controller/DetailsEventEController'
 import CreateEventScreen from '../screens/createEvent/controller/CreateEventController'
